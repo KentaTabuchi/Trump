@@ -85,7 +85,7 @@ namespace Trump
                 
 
             }
-            imageBitmap = ImageRoi(originalBitmap,new Rectangle(x * width,y * hidth,width,hidth));//一枚あたりの大きさ
+            ImageBitmap = ImageRoi(originalBitmap,new Rectangle(x * width,y * hidth,width,hidth));//一枚あたりの大きさ
 
         }
         /// <summary>
