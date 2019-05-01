@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Diagnostics;
 namespace Trump
 {
     /// <summary>
@@ -26,12 +26,14 @@ namespace Trump
                     number = 0;
                     var card = new Card(suit, number);
                     cards.Add(card);
+                    Debug.Print(suit.ToString() + number.ToString());
                 }
                 else {
                     for (int i = 1; i < 14; i++) {
                         number = i;
                         var card = new Card(suit, number);
                         cards.Add(card);
+                        Debug.Print(suit.ToString() + number.ToString());
                     }
                 }
                 

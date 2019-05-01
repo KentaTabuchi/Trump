@@ -9,7 +9,7 @@
 
     <Grid>
         <Button Content="Button" HorizontalAlignment="Left" Margin="352,359,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Image x:Name="Image1" HorizontalAlignment="Left" Height="230" Margin="210,55,0,0" VerticalAlignment="Top" Width="249"/>
+        <Image x:Name="Image1" HorizontalAlignment="Left" Height="133" Margin="330,121,0,0" VerticalAlignment="Top" Width="113"/>
 
     </Grid>
 

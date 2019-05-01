@@ -13,11 +13,11 @@ namespace Trump
     ///</summary>
     public enum Suit
     {
-        spade,
-        heart,
-        daiamond,
-        club,
-        jocker
+        spade = 1,
+        heart = 0,
+        daiamond = 2,
+        club = 3,
+        jocker = 4
     }
     /// <summary>
     /// カードの表裏を表す列挙子
@@ -52,7 +52,8 @@ namespace Trump
             this.suit = suit;
             this.number = number;
             this.side = Side.back;
-            
+            const int width = 60;//カード１枚の幅
+            const int hidth = 90;//カード１枚の高さ
 
             if (originalBitmap == null){
                 originalBitmap = new Bitmap(480, 630);
@@ -60,7 +61,31 @@ namespace Trump
                 originalBitmap = (Bitmap)originalImage;
                
             }
-            imageBitmap = ImageRoi(originalBitmap,new Rectangle(0,0,60,90));//一枚あたりの大きさ
+
+            int x;
+            int y;
+          
+                if (suit.Equals(Suit.jocker))
+                {
+                    x = 4;
+                    y = 6;
+                }
+                else {
+                    if (number < 8)
+                    {
+                        x = (int)suit;
+                        y = number - 1;
+                    }
+                    else
+                    {  //元画像が８から次の列になっているので読み込み位置をずらす
+                        x = (int)suit + 4; 
+                        y = number - 8;
+
+                    }
+                
+
+            }
+            imageBitmap = ImageRoi(originalBitmap,new Rectangle(x * width,y * hidth,width,hidth));//一枚あたりの大きさ
 
         }
         /// <summary>

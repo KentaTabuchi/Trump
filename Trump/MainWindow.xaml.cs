@@ -34,7 +34,8 @@ namespace Trump
         {
             var deck = new Deck();
             Debug.Print("Deckのコンストラクタが起動");
-            Card card = deck.Cards[3];
+            Card card = deck.Cards[0];
+            Debug.Print("このカードは:"+card.Suit.ToString() + card.Number);
             IntPtr hbitmap = card.ImageBitmap.GetHbitmap();
             Image1.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hbitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             DeleteObject(hbitmap);
