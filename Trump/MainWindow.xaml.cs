@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace Trump
 {
     /// <summary>
@@ -21,6 +22,9 @@ namespace Trump
     /// </summary>
     public partial class MainWindow : Window
     {
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool
+ DeleteObject(IntPtr hObject);
         public MainWindow()
         {
             InitializeComponent();
@@ -28,8 +32,12 @@ namespace Trump
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var card = new Deck();
+            var deck = new Deck();
             Debug.Print("Deckのコンストラクタが起動");
+            Card card = deck.Cards[3];
+            IntPtr hbitmap = card.ImageBitmap.GetHbitmap();
+            Image1.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hbitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            DeleteObject(hbitmap);
         }
     }
 }
