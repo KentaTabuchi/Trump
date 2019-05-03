@@ -8,10 +8,13 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
+        <StackPanel x:Name="myStackPanel01"  Width="500" Orientation="Horizontal"  HorizontalAlignment="Left" VerticalAlignment="Top" >
+        </StackPanel>
         <Button Content="選ぶ" HorizontalAlignment="Left" Margin="352,359,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Image x:Name="Image1" HorizontalAlignment="Left" Height="133" Margin="330,121,0,0" VerticalAlignment="Top" Width="113"/>
         <ComboBox x:Name="ComboBox_Suit" HorizontalAlignment="Left" Height="28" Margin="502,335,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Suit_Loaded"/>
         <ComboBox x:Name="ComboBox_Number" HorizontalAlignment="Left" Margin="502,283,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Number_Loaded"/>
+        <Button Content="裏返す" HorizontalAlignment="Left" Margin="231,359,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
 
     </Grid>
 

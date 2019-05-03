@@ -4,7 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Trump
 {
@@ -36,12 +38,18 @@ namespace Trump
 
     class Card
     {
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool
+        DeleteObject(IntPtr hObject);
+
         private readonly Suit suit;
         private readonly int number;
         private Side side;
         private readonly string imgURL = "C:/Users/tabuchikenta/source/repos/Trump/Trump/Assets/trump.bmp";
         public static Bitmap originalBitmap; //元画像全体のイメージ
         private Bitmap imageBitmap;
+        private System.Windows.Media.ImageSource imageSource;
+        public static Bitmap backImageBitmap;//裏面のビットマップ。裏面は共通なのでクラス変数にする。
         /// <summary>
         /// コンストラクタで画像イメージを設定する。
         /// 全絵柄の１枚絵をクラス変数に保持して部分イメージを切り出して割り当てる。
@@ -59,7 +67,7 @@ namespace Trump
                 originalBitmap = new Bitmap(480, 630);
                 var originalImage = Image.FromFile(imgURL);
                 originalBitmap = (Bitmap)originalImage;
-               
+                backImageBitmap = ImageRoi(originalBitmap, new Rectangle(7 * width, 6 * hidth, width, hidth));
             }
 
             int x;
@@ -86,7 +94,9 @@ namespace Trump
 
             }
             ImageBitmap = ImageRoi(originalBitmap,new Rectangle(x * width,y * hidth,width,hidth));//一枚あたりの大きさ
-
+            IntPtr hbitmap = ImageBitmap.GetHbitmap();
+            imageSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hbitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            DeleteObject(hbitmap);
         }
         /// <summary>
         /// Bitmapの一部を切り出したBitmapオブジェクトを返す
@@ -122,10 +132,32 @@ namespace Trump
 
             return dst;
         }
+        /// <summary>
+        /// カードをひっくり返す。
+        /// </summary>
+        public void ReverseCard() {
+            if (side == Side.front)
+            {
+                side = Side.back;
+                IntPtr hbitmap = backImageBitmap.GetHbitmap();
+                imageSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hbitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                DeleteObject(hbitmap);
+            }
+            else {
+                side = Side.front;
+                IntPtr hbitmap = ImageBitmap.GetHbitmap();
+                imageSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hbitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                DeleteObject(hbitmap);
+            }
+        }
 
         public int Number { get => number; }
         internal Suit Suit { get => suit; }
         internal Side Side { get => side; set => side = value; }
         public Bitmap ImageBitmap { get => imageBitmap; set => imageBitmap = value; }
+        /// <summary>
+        /// イメージコントロールのSourceプロパティにイメージを渡すためのハンドル
+        /// </summary>
+        public ImageSource ImageSource { get => imageSource; set => imageSource = value; }
     }
 }

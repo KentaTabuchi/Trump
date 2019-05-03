@@ -24,16 +24,19 @@ namespace Trump
     {
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool
- DeleteObject(IntPtr hObject);
+        DeleteObject(IntPtr hObject);
+
+        Deck deck;
+        Card SelectedCard; //選択中のカード
+        private Image[] images;//Imageコントロールを動的生成するための配列
         public MainWindow()
         {
             InitializeComponent();
+            deck = new Deck();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var deck = new Deck();
-  
             int number;
             Suit suit;
             
@@ -46,11 +49,22 @@ namespace Trump
             {
                 number = Int32.Parse(ComboBox_Number.Text);
             }
-            Card card = deck.Cards.Find(m => m.Number == number && m.Suit.Equals(suit));
-            Debug.Print("このカードは:"+card.Suit.ToString() + card.Number);
-            IntPtr hbitmap = card.ImageBitmap.GetHbitmap();
-            Image1.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hbitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            DeleteObject(hbitmap);
+            SelectedCard = deck.Cards.Find(m => m.Number == number && m.Suit.Equals(suit));
+            Image1.Source = SelectedCard.ImageSource;
+
+            images = new Image[6];
+            for (int i = 1; i < images.Length; i++) {
+                images[i] = new Image();
+                images[i].Name = "Img" + i.ToString();
+                number = i;
+                Card card2 = deck.Cards.Find(m => m.Number == number && m.Suit.Equals(suit));
+                images[i].Source = card2.ImageSource;
+                images[i].Width = 60;
+                images[i].Height = 90;
+
+                myStackPanel01.Children.Add(images[i]);
+                
+            }
         }
 
         private void ComboBox_Number_Loaded(object sender, RoutedEventArgs e)
@@ -67,6 +81,16 @@ namespace Trump
             {
                 ComboBox_Suit.Items.Add(suit.ToString());
             }
+        }
+        /// <summary>
+        /// これを押すとカードが裏返る実験
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            SelectedCard.ReverseCard();
+            Image1.Source = SelectedCard.ImageSource;
         }
     }
 }
