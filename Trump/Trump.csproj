@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ScoreViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +67,7 @@
     </Compile>
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="GameController.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -99,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\trump.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ルール.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="やること.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

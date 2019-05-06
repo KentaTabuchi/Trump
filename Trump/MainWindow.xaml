@@ -6,16 +6,47 @@
         xmlns:local="clr-namespace:Trump"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+  
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="ファイル"></MenuItem>
+            <MenuItem Header="ヘルプ"></MenuItem>
+        </Menu>
+    <Grid Background="LightSeaGreen">
 
-    <Grid>
-        <StackPanel x:Name="myStackPanel01"  Width="500" Orientation="Horizontal"  HorizontalAlignment="Left" VerticalAlignment="Top" >
-        </StackPanel>
-        <Button Content="選ぶ" HorizontalAlignment="Left" Margin="352,359,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Image x:Name="Image1" HorizontalAlignment="Left" Height="133" Margin="330,121,0,0" VerticalAlignment="Top" Width="113"/>
-        <ComboBox x:Name="ComboBox_Suit" HorizontalAlignment="Left" Height="28" Margin="502,335,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Suit_Loaded"/>
-        <ComboBox x:Name="ComboBox_Number" HorizontalAlignment="Left" Margin="502,283,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Number_Loaded"/>
-        <Button Content="裏返す" HorizontalAlignment="Left" Margin="231,359,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions >
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" x:Name="DealerHandPanel"  Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        </StackPanel>
+                <StackPanel Grid.Row="2" x:Name="PlayerHandPanel"  Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                </StackPanel>
+                <DockPanel Grid.Row="3" Background = "WhiteSmoke">
+                    <TextBox Text="メッセージウインドウ"></TextBox>
+                </DockPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="1.5*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" x:Name="ResultPanel" Background="Black">
+                    <Label Content="プレイヤー得点" Foreground="Aqua"></Label>
+                    <Label Content="{Binding PlayerScore}" x:Name="ScoreLabel" Foreground="White"></Label>
+                </StackPanel>
+                <DockPanel Grid.Row="1"  Background="Gray" >
+                    <Button Content="配る" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="80" Click="Button_Click" ></Button>
+                </DockPanel>
+            </Grid>
 
-    </Grid>
-
+        </Grid>
+    </DockPanel>
 </Window>
