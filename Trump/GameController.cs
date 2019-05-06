@@ -46,37 +46,47 @@ namespace Trump
         /// <param name="panel"></param>画面のどのパネルにイメージ画像を表示するか
         /// <param name="cardsNumber"></param>
         /// <returns></returns>　配られた手札のリスト。
-        public List<Card> DistributeCard(Deck deck,Panel panel,int cardsNumber) {
+        public List<Card> DistributeCard(Deck deck,int cardsNumber) {
 
-            System.Threading.Thread.Sleep(300);
+            System.Threading.Thread.Sleep(15);
 
             var Cards = new List<Card>();
-            const int CARD_WIDTH = 60;
-            const int CARD_HEIGHT = 90;
-            var images = new Image[cardsNumber+1];
-
             var random1 = new Random();
             var random2 = new Random();
             
-            for (int i = 1; i < images.Length; i++)
+            for (int i = 0; i < cardsNumber; i++)
             {
-                images[i] = new Image();
-                images[i].Name = "Img" + i.ToString();
-
                 int number;
-                number = random1.Next(14);
+                number = 1+ random1.Next(14);
                 Suit suit = (Suit)random2.Next(5);
-
                 var card = DrawCard(deck, suit, number);//山札から一枚引く
                 Cards.Add(card);//引いたカードを手札へ加える
-                images[i].Source = card.ImageSource;
-                images[i].Width = CARD_WIDTH;
-                images[i].Height = CARD_HEIGHT;
-
-                panel.Children.Add(images[i]);
                 
             }
             return Cards;
+        }
+        public List<Image> PrintCardImage(List<Card> Cards,Panel panel) {
+
+            const int CARD_WIDTH = 60;
+            const int CARD_HEIGHT = 90;
+
+            var images = new List<Image>();
+            int i=0;
+            foreach (Card card in Cards)
+            {
+                
+                var image = new Image();
+                image.Name = "Img" + i.ToString();
+                image.Source = card.ImageSource;
+                image.Width = CARD_WIDTH;
+                image.Height = CARD_HEIGHT;
+
+                panel.Children.Add(image);
+                images.Add(image);
+                i++;
+
+            }
+            return images;
         }
     }
 }

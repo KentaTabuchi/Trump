@@ -19,8 +19,11 @@ namespace Trump
         {
             var deck = new Deck();
             var controller = new GameController();
-            controller.DistributeCard(deck, DealerHandPanel, 5);
-            controller.DistributeCard(deck, PlayerHandPanel, 5);
+            var dealerCards = controller.DistributeCard(deck, 5);
+            var playerCards = controller.DistributeCard(deck, 5);
+            controller.PrintCardImage( dealerCards,DealerHandPanel);
+            controller.PrintCardImage( playerCards,PlayerHandPanel);
+
         }
     }
 }
